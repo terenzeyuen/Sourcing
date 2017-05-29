@@ -32,7 +32,9 @@ final public class TableViewDataSource<Object>: NSObject, UITableViewDataSource,
         self.displaySectionIndexTitles = displaySectionIndexTitles
         super.init()
         dataProvider.whenDataProviderChanged = { [weak self] updates in
-            self?.process(updates: updates)
+            DispatchQueue.main.async {
+              self?.process(updates: updates)
+            }
         }
         register(cells: cells)
         tableView.dataSource = self
